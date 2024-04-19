@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./FoodDisplay.css";
 import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "../FoodItem/FoodItem";
+import Button from '@mui/material/Button'
 
 const FoodDisplay = ({ category }) => {
   const { foodList } = useContext(StoreContext);
+  const [limit, setLimit] = useState(8)
 
   return (
     <div className="food-display" id="food-display">
@@ -26,6 +28,15 @@ const FoodDisplay = ({ category }) => {
             }
           })}
         </div>
+        {
+          limit < foodList.length && (
+            <div className="container">
+              <Button onClick={() => {
+                setLimit(limit + 4);
+              }}>Load More</Button>
+            </div>
+          )
+        }
       </div>
     </div>
   );
