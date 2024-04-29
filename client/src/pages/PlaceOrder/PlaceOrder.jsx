@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   const { getTotalCartAmount, token, foodList, cartItems, url } =
@@ -30,7 +31,7 @@ const PlaceOrder = () => {
 
     // Filter items with non-zero quantity
     const orderItems = foodList
-      .filter((item) => cartItems[item._id] > 0) 
+      .filter((item) => cartItems[item._id] > 0)
       .map((item) => ({ ...item, quantity: cartItems[item._id] }));
 
     const orderData = {
@@ -52,112 +53,124 @@ const PlaceOrder = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/cart");
+    } else if (getTotalCartAmount() === 0) {
+      navigate("/cart");
+    }
+  }, [token]);
+
   return (
-    <form className="place-order" onSubmit={placeOrder}>
-      <div className="place-order-left">
-        <p className="title">Delivery Info</p>
-        <div className="multi-fields">
+    <form
+      className='place-order'
+      onSubmit={placeOrder}>
+      <div className='place-order-left'>
+        <p className='title'>Delivery Info</p>
+        <div className='multi-fields'>
           <input
             required
-            name="firstName"
+            name='firstName'
             onChange={onChangeHandler}
             value={data.firstName}
-            type="text"
-            placeholder="First Name"
+            type='text'
+            placeholder='First Name'
           />
           <input
             required
-            name="lastName"
+            name='lastName'
             onChange={onChangeHandler}
             value={data.lastName}
-            type="text"
-            placeholder="Last Name"
+            type='text'
+            placeholder='Last Name'
           />
         </div>
         <input
           required
-          name="email"
+          name='email'
           onChange={onChangeHandler}
           value={data.email}
-          type="email"
-          placeholder="Email address"
+          type='email'
+          placeholder='Email address'
         />
         <input
           required
-          name="street"
+          name='street'
           onChange={onChangeHandler}
           value={data.street}
-          type="text"
-          placeholder="Street"
+          type='text'
+          placeholder='Street'
         />
-        <div className="multi-fields">
+        <div className='multi-fields'>
           <input
             required
-            name="city"
+            name='city'
             onChange={onChangeHandler}
             value={data.city}
-            type="text"
-            placeholder="City"
+            type='text'
+            placeholder='City'
           />
           <input
             required
-            name="state"
+            name='state'
             onChange={onChangeHandler}
             value={data.state}
-            type="text"
-            placeholder="State"
+            type='text'
+            placeholder='State'
           />
         </div>
-        <div className="multi-fields">
+        <div className='multi-fields'>
           <input
             required
-            name="zipcode"
+            name='zipcode'
             onChange={onChangeHandler}
             value={data.zipcode}
-            type="text"
-            placeholder="Zip code"
+            type='text'
+            placeholder='Zip code'
           />
           <input
             required
-            name="country"
+            name='country'
             onChange={onChangeHandler}
             value={data.country}
-            type="text"
-            placeholder="Country"
+            type='text'
+            placeholder='Country'
           />
         </div>
         <input
           required
-          name="phone"
+          name='phone'
           onChange={onChangeHandler}
           value={data.phone}
-          type="text"
-          placeholder="Phone"
+          type='text'
+          placeholder='Phone'
         />
       </div>
 
-      <div className="place-order-right">
-        <div className="cart-total">
+      <div className='place-order-right'>
+        <div className='cart-total'>
           <h2>Cart Total</h2>
           <div>
-            <div className="cart-total-details">
+            <div className='cart-total-details'>
               <p>Subtotal</p>
               <p>Rs.{getTotalCartAmount()}</p>
             </div>
             <hr />
-            <div className="cart-total-details">
+            <div className='cart-total-details'>
               <p>Delivery Fee</p>
               <p>Rs.{getTotalCartAmount() === 0 ? 0 : 5}</p>
             </div>
             <hr />
-            <div className="cart-total-details">
+            <div className='cart-total-details'>
               <p>Total</p>
               <p>
                 Rs.{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 5}
               </p>
             </div>
           </div>
-          <button type="submit">PROCEED TO PAYMENT</button>
+          <button type='submit'>PROCEED TO PAYMENT</button>
         </div>
       </div>
     </form>

@@ -21,17 +21,17 @@ const Verify = () => {
           orderId,
         });
 
-        console.log("Server response:", response.data); // Debugging
+        console.log("Server response:", response.data); 
 
         if (response.data.success) {
           navigate("/myorders");
-          console.log(myorders)
+          console.log(myorders);
         } else {
-          navigate('/')
-          console.log('/')
+          navigate("/");
+          console.log("/");
         }
       } catch (error) {
-        console.error("Error verifying payment:", error); // Debugging
+        console.error("Error verifying payment:", error); 
       }
     };
 
