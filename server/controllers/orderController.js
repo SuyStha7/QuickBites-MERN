@@ -1,59 +1,80 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
-import Stripe from 'stripe'
+import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // place order
 const placeOrder = async (req, res) => {
+  const frontend_url = "http://localhost:5173";
 
-    const frontend_url = "http://localhost:5173"
+  console.log(`stripe is : ${stripe}`);
 
-    try {
-        const newOrder = new orderModel({
-            userId: req.body.userId,
-            items: req.body.items,
-            amount: req.body.amount,
-            address: req.body.address,
-        })
-        await newOrder.save();
-        await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} })
+  try {
+    const newOrder = new orderModel({
+      userId: req.body.userId,
+      items: req.body.items,
+      amount: req.body.amount,
+      address: req.body.address,
+    });
+    await newOrder.save();
+    await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
 
-        const line_items = req.body.items.map((item) => ({
-            price_data: {
-                currency: "npr",
-                product_data: {
-                    name: item.name
-                },
-                unit_amount: item.price * 100 * 134
-            },
-            quantity: item.quantity
-        }))
+    const nepaliRupeesToCents = (amountInNPR) => Math.round(amountInNPR * 100);
 
-        line_items.push({
-            price_data: {
-                currency: "npr",
-                product_data: {
-                    name: "Delivery Charges"
-                },
-                unit_amount: 5 * 100 * 134
-            },
-            quantity: 1
-        })
+    const lineItems = req.body.items.map((item) => ({
+      price_data: {
+        currency: "npr",
+        product_data: {
+          name: item.name,
+        },
+        unit_amount: nepaliRupeesToCents(item.price), // Convert NPR to cents
+      },
+      quantity: item.quantity,
+    }));
 
-        const session = await stripe.checkout.sessions.create({
-            line_items: line_items,
-            mode: "payment",
-            success_url: `${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
-            cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`
-        })
+    console.log(lineItems);
 
-        res.json({ success: true, session_url: session.url })
+    lineItems.push({
+      price_data: {
+        currency: "npr",
+        product_data: {
+          name: "Delivery Charges",
+        },
+        unit_amount: nepaliRupeesToCents(5), // Convert NPR to cents for delivery charges
+      },
+      quantity: 1,
+    });
 
-    } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: "Error" })
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: lineItems,
+      mode: "payment",
+      success_url: `${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
+      cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
+    });
+
+    res.json({ success: true, session_url: session.url });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
+
+const verifyOrder = async (req, res) => {
+  const { orderId, success } = req.body;
+  try {
+    if (success === "true") {
+      await orderModel.findByIdAndUpdate(orderId, { payment: true });
+      res.json({ success: true, message: "Paid" });
+    } else {
+      await orderModel.findByIdAndDelete(orderId);
+      res.json({ success: false, message: "Not paid" });
     }
-}
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
 
-export { placeOrder }
+export { placeOrder, verifyOrder };

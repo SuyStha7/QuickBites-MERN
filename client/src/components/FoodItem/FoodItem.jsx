@@ -7,12 +7,17 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import { MdOutlineZoomOutMap } from "react-icons/md";
 
 const FoodItem = ({ id, name, price, description, image }) => {
-  const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart, url } =
+    useContext(StoreContext);
 
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img src={url + "/images/" + image} alt="" className="food-item-image" />
+        <img
+          src={url + "/images/" + image}
+          alt=""
+          className="food-item-image"
+        />
         <div className="action">
           <MdOutlineZoomOutMap />
         </div>
@@ -38,7 +43,6 @@ const FoodItem = ({ id, name, price, description, image }) => {
             />
           </div>
         )}
-
       </div>
       <div className="food-item-info">
         <div className="food-item-name-rating">

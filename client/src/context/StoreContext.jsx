@@ -16,7 +16,7 @@ const StoreContextProvider = (props) => {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
     if (token) {
-       await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } })
+      await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } })
     }
   };
 
@@ -51,9 +51,14 @@ const StoreContextProvider = (props) => {
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const item in cartItems) {
-      if (cartItems[item] > 0 && foodList.length > 0) {
+      if (cartItems[item] > 0) {
         let itemInfo = foodList.find((product) => product._id === item);
-        totalAmount += item.price * cartItems[item];
+        // Check if itemInfo is defined before accessing its properties
+        if (itemInfo) {
+          totalAmount += itemInfo.price * cartItems[item];
+        } else {
+          console.error('Item not found in foodList:', item);
+        }
       }
     }
     return totalAmount;
