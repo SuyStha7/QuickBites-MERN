@@ -11,37 +11,28 @@ import { FaTwitter } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-      <div className="footer">
-        <div className="container">
-          <div className="offers">
-            <div className="offer">
+      <div className='footer'>
+        <div className='container'>
+          <div className='offers'>
+            <div className='offer'>
               <span>
                 <MdProductionQuantityLimits />
               </span>
               <h4>Everyday fresh products</h4>
             </div>
 
-            <span className="line"></span>
+            <span className='line'></span>
 
-            <div className="offer">
-              <span>
-                <CiDeliveryTruck />
-              </span>
-              <h4>Free delivery for order over $70</h4>
-            </div>
-
-            <span className="line"></span>
-
-            <div className="offer">
+            <div className='offer'>
               <span>
                 <CiDiscount1 />
               </span>
               <h4>Daily Mega Discounts</h4>
             </div>
 
-            <span className="line"></span>
+            <span className='line'></span>
 
-            <div className="offer">
+            <div className='offer'>
               <span>
                 <CiDollar />
               </span>
@@ -49,8 +40,8 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="footer_list">
-            <div className="footerBox">
+          <div className='footer_list'>
+            <div className='footerBox'>
               <h4>FRUIT & VEGETABLES</h4>
               <ul>
                 <li>Fresh Vegetables</li>
@@ -63,7 +54,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="footerBox">
+            <div className='footerBox'>
               <h4>BREAKFAST & DAIRY</h4>
               <ul>
                 <li>Milk & Flavoured Milk</li>
@@ -77,7 +68,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="footerBox">
+            <div className='footerBox'>
               <h4>MEAT & SEAFOOD</h4>
               <ul>
                 <li>Breakfast Sausage</li>
@@ -92,7 +83,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="footerBox">
+            <div className='footerBox'>
               <h4>BEVERAGES</h4>
               <ul>
                 <li>Water</li>
@@ -107,7 +98,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="footerBox">
+            <div className='footerBox'>
               <h4>BREADS & BAKERY</h4>
               <ul>
                 <li>Milk & Flavoured Milk</li>
@@ -124,16 +115,16 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="footerBottom">
-        <div className="container">
-          <div className="copyright">
+      <div className='footerBottom'>
+        <div className='container'>
+          <div className='copyright'>
             <p>Copyright 2024 © OpenCart. All rights reserved.</p>
-            <ul className="items">
+            <ul className='items'>
               <li>Privacy Policy</li>
               <li>Terms and Conditions</li>
               <li>Cookie</li>
             </ul>
-            <div className="social">
+            <div className='social'>
               <Button>
                 <FaFacebookF />
               </Button>

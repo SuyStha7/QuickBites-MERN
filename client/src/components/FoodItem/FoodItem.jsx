@@ -18,9 +18,9 @@ const FoodItem = ({ id, name, price, description, image }) => {
           alt=""
           className="food-item-image"
         />
-        <div className="action">
-          <MdOutlineZoomOutMap />
-        </div>
+          {/* <div className="action">
+            <MdOutlineZoomOutMap />
+          </div> */}
         {!cartItems[id] ? (
           <img
             className="add"
@@ -49,7 +49,6 @@ const FoodItem = ({ id, name, price, description, image }) => {
           <p>{name}</p>
           <h6 className="food-item-price">Rs.{price}</h6>
         </div>
-        <div className="food-item-desc">{description}</div>
         <div className="food-stars">
           <FaStar />
           <FaStar />

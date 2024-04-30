@@ -11,12 +11,13 @@
 
 .my-orders-order {
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 2fr 1fr;
+    grid-template-columns: 0.5fr 3fr 1fr 1fr 2fr 1.5fr;
     align-items: center;
     gap: 30px;
     font-size: 14px;
-    padding: 10px 20px;
+    padding: 15px 20px;
     color: #454545;
+    border-radius: 10px;
     border: 1px solid #01b0e4;
 }
 
@@ -40,6 +41,7 @@
     background-color: #e1f6ff;
     cursor: pointer;
     color: #454545;
+    border-radius: 5px;
 }
 
 @media (max-width: 900px) {

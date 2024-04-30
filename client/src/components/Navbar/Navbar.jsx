@@ -58,13 +58,7 @@ const Navbar = ({ setShowLogin }) => {
             <a href='#explore-menu'>Menu</a>
           </li>
           <li>
-            <a href='#feedback'>Testimonials</a>
-          </li>
-          <li>
             <a href='#app-download'>Mobile-app</a>
-          </li>
-          <li>
-            <a href='#blogs'>Blogs</a>
           </li>
           <li>
             <a href='#contact'>Contact us</a>
@@ -72,12 +66,24 @@ const Navbar = ({ setShowLogin }) => {
         </ul>
 
         <div className='search'>
-          <input
-            type='text'
-            placeholder='Search here...'
-            className='searchInput'
-          />
-          <FaSearch className='searchIcon' />
+          {token ? (
+            <input
+              type='text'
+              placeholder='Search here...'
+              className='searchInput'
+            />
+          ) : (
+            <input
+              type='text'
+              placeholder='Search here...'
+              className='searchInputBox'
+            />
+          )}
+          {token ? (
+            <FaSearch className='searchIcon' />
+          ) : (
+            <FaSearch className='searchIconBox' />
+          )}
         </div>
 
         <div className='navbar-right'>
