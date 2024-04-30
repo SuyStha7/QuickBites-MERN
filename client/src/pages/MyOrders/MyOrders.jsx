@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./MyOrders.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { assets } from "../../assets/assets";
 
 const MyOrders = () => {
@@ -9,12 +10,16 @@ const MyOrders = () => {
   const [data, setData] = useState([]);
 
   const fetchOrders = async () => {
-    const response = await axios.post(
-      url + "api/order/userorders",
-      {},
-      { headers: { token } },
-      setData(response.data.data)
-    );
+    try {
+      const response = await axios.post(
+        `${url}/api/order/userorders`,
+        {},
+        { headers: { token } }
+      );
+      setData(response.data.data);
+    } catch (error) {
+      toast.error("Error fetching orders:", error);
+    }
   };
 
   useEffect(() => {
@@ -39,9 +44,9 @@ const MyOrders = () => {
               <p>
                 {order.items.map((item, index) => {
                   if (index === order.items.length - 1) {
-                    return item.name + "x" + item.quantity;
+                    return item.name + " x " + item.quantity;
                   } else {
-                    return item.name + "x" + item.quantity + ", ";
+                    return item.name + " x " + item.quantity + ", ";
                   }
                 })}
               </p>

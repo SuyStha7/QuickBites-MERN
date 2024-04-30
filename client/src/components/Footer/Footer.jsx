@@ -1,4 +1,3 @@
-import React from "react";
 import "./Footer.css";
 import Button from "@mui/material/Button";
 import { MdProductionQuantityLimits } from "react-icons/md";

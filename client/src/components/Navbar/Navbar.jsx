@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import Button from "@mui/material/Button";
@@ -95,7 +95,7 @@ const Navbar = ({ setShowLogin }) => {
           ) : (
             <div className='navbar-profile'>
               <img
-                src={assets.profile_icon}
+                src={assets.profile_image}
                 alt=''
               />
               <ul className='nav-profile-dropdown'>

@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import  { useContext } from "react";
 import "./FoodDisplay.css";
 import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "../FoodItem/FoodItem";
-import Button from "@mui/material/Button";
 
 const FoodDisplay = ({ category }) => {
   const { foodList } = useContext(StoreContext);

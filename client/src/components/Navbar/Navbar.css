@@ -143,11 +143,15 @@
 
 .searchInput::placeholder {
     color: #000;
+    border-right: 2px solid #444647;
+    margin-right: 15px;
 }
 
 .searchIcon {
+    position: absolute;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 18px;
+    right: 18%;
     color: #444647;
     transition: all 0.2s ease-in-out;
 }
@@ -203,13 +207,13 @@
 }
 
 .navbar-profile img{
-    width: 20px;
+    width: 35px;
     margin-top: 4px;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s ease-in-out;
 }
 
 .navbar-profile img:hover{
-    transform: scale(1.07);
+    transform: scale(1.09);
 }
 
 .nav-profile-dropdown {
