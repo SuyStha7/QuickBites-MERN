@@ -9,6 +9,12 @@
     margin-top: 30px;
 }
 
+.my-orders .title{
+    text-align: center;
+    color: #454545;
+    font-size: 25px;
+}
+
 .my-orders-order {
     display: grid;
     grid-template-columns: 0.5fr 3fr 1fr 1fr 2fr 1.5fr;
