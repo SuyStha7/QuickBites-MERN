@@ -13,6 +13,7 @@
 .login-popup-container {
     width: max(23vw, 400px);
     padding: 25px 30px;
+    margin-top: 50px;
     background-color: #fff;
     color: #444647;
     border-radius: 8px;

@@ -6,18 +6,12 @@ import Button from "@mui/material/Button";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const LoginPopup = ({ setShowLogin }) => {
-  const { url, setToken } = useContext(StoreContext);
-  const [currState, setCurrState] = useState("Login");
-  const [showPassword, setShowPassword] = useState(false);
-  const [isPasswordEmpty, setIsPasswordEmpty] = useState(true);
-
-  // Yup validation schema
-  const validationSchema = Yup.object({
+// Validation schema
+const getValidationSchema = (currState) =>
+  Yup.object({
     name:
       currState === "Sign Up"
         ? Yup.string().required("Name is required")
@@ -31,19 +25,22 @@ const LoginPopup = ({ setShowLogin }) => {
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character"
       ),
-    terms: Yup.boolean().oneOf([true], "You must agree to the terms"),
+    terms:
+      currState === "Sign Up"
+        ? Yup.boolean().oneOf([true], "You must agree to the terms")
+        : Yup.boolean(),
   });
 
-  const handleFormSubmit = async (values) => {
-    let newUrl = url;
-    if (currState === "Login") {
-      newUrl += "/api/user/login";
-    } else {
-      newUrl += "/api/user/register";
-    }
+const LoginPopup = ({ setShowLogin }) => {
+  const { url, setToken } = useContext(StoreContext);
+  const [currState, setCurrState] = useState("Login");
+  const [showPassword, setShowPassword] = useState(false);
 
+  const handleFormSubmit = async (values) => {
+    const endpoint =
+      currState === "Login" ? "/api/user/login" : "/api/user/register";
     try {
-      const response = await axios.post(newUrl, values);
+      const response = await axios.post(`${url}${endpoint}`, values);
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
@@ -62,7 +59,7 @@ const LoginPopup = ({ setShowLogin }) => {
     <div className='login-popup'>
       <Formik
         initialValues={{ name: "", email: "", password: "", terms: false }}
-        validationSchema={validationSchema}
+        validationSchema={getValidationSchema(currState)}
         onSubmit={handleFormSubmit}>
         {({ values, handleChange }) => (
           <Form className='login-popup-container'>
@@ -76,22 +73,19 @@ const LoginPopup = ({ setShowLogin }) => {
             </div>
             <div className='login-popup-input'>
               {currState === "Sign Up" && (
-                <>
-                  <div className='name-container'>
-                    <Field
-                      type='text'
-                      name='name'
-                      placeholder='Your name'
-                    />
-                    <ErrorMessage
-                      name='name'
-                      component='p'
-                      className='error-message'
-                    />
-                  </div>
-                </>
+                <div className='name-container'>
+                  <Field
+                    type='text'
+                    name='name'
+                    placeholder='Your name'
+                  />
+                  <ErrorMessage
+                    name='name'
+                    component='p'
+                    className='error-message'
+                  />
+                </div>
               )}
-
               <div className='email-container'>
                 <Field
                   type='email'
@@ -104,24 +98,18 @@ const LoginPopup = ({ setShowLogin }) => {
                   className='error-message'
                 />
               </div>
-
               <div className='password-container'>
                 <Field
                   type={showPassword ? "text" : "password"}
                   name='password'
                   placeholder='Password'
-                  onChange={(e) => {
-                    handleChange(e);
-                    setIsPasswordEmpty(e.target.value === "");
-                  }}
+                  onChange={handleChange}
                 />
-                {!isPasswordEmpty && (
-                  <span
-                    className='password-toggle'
-                    onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </span>
-                )}
+                <span
+                  className='password-toggle'
+                  onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
                 <ErrorMessage
                   name='password'
                   component='p'
@@ -129,37 +117,38 @@ const LoginPopup = ({ setShowLogin }) => {
                 />
               </div>
             </div>
-
-            <div className='popup-container'>
-              <div className='login-popup-condition'>
-                <Field
-                  type='checkbox'
-                  name='terms'
-                />
-                <p>
-                  By continuing, I agree to the terms of use & privacy policy
-                </p>
+            {currState === "Sign Up" && (
+              <div className='popup-container'>
+                <div className='login-popup-condition'>
+                  <Field
+                    type='checkbox'
+                    name='terms'
+                  />
+                  <p>
+                    By continuing, I agree to the terms of use & privacy policy
+                  </p>
+                </div>
               </div>
-            </div>
-
+            )}
             <Button type='submit'>
               {currState === "Sign Up" ? "Create account" : "Login"}
             </Button>
-            {currState === "Login" ? (
-              <p>
-                Create a new account?{" "}
-                <span onClick={() => setCurrState("Sign Up")}>Register</span>
-              </p>
-            ) : (
-              <p>
-                Already have an account?{" "}
-                <span onClick={() => setCurrState("Login")}>Login here</span>
-              </p>
-            )}
+            <p>
+              {currState === "Login" ? (
+                <>
+                  Create a new account?{" "}
+                  <span onClick={() => setCurrState("Sign Up")}>Register</span>
+                </>
+              ) : (
+                <>
+                  Already have an account?{" "}
+                  <span onClick={() => setCurrState("Login")}>Login</span>
+                </>
+              )}
+            </p>
           </Form>
         )}
       </Formik>
-      <ToastContainer />
     </div>
   );
 };
