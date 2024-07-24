@@ -1,6 +1,6 @@
 .order-item {
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr 1fr 2fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr 1fr 2fr;
     align-items: center;
     gap: 30px;
     border: 1px solid #01b0e4;
@@ -19,6 +19,10 @@
 .order p {
     line-height: 18px;
     letter-spacing: 0.9px;
+}
+
+.order h2 {
+    font-size: 25px;
 }
 
 .order-item-name {
@@ -43,13 +47,31 @@
     padding: 5px 10px;
     cursor: pointer;
     font-size: 22px;
-    color: red
+    color: red;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .order-item {
+        font-size: 14px;
+        grid-template-columns: 1fr 3fr 1fr 1fr 1.5fr;
+        gap: 20px;
+    }
+
+    .order-item select {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .order-item img {
+        width: 60px;
+    }
 }
 
 @media (max-width: 1000px) {
     .order-item {
         font-size: 12px;
-        grid-template-columns: 0.5fr 2fr 1fr;
+        grid-template-columns: 1fr 2fr 1fr;
         padding: 15px 8px;
     }
 
@@ -59,6 +81,38 @@
     }
 
     .order-item img {
+        width: 50px;
+    }
+}
+
+@media (max-width: 600px) {
+    .order-item {
+        font-size: 10px;
+        grid-template-columns: 1fr 2fr;
+        padding: 10px;
+        margin: 20px 0px;
+    }
+
+    .order-item select {
+        width: 100%;
+        padding: 8px;
+        font-size: 10px;
+    }
+
+    .order-item img {
         width: 40px;
+    }
+
+    .remove-btn {
+        font-size: 18px;
+        padding: 4px 8px;
+    }
+
+    .order h2 {
+        font-size: 20px;
+    }
+
+    .order p {
+        line-height: 16px;
     }
 }

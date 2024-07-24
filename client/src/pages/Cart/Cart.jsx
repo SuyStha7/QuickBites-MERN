@@ -27,6 +27,8 @@ const Cart = () => {
     toast.success("Item removed from cart!", { autoClose: 1000 });
   };
 
+  const isCartEmpty = getTotalCartAmount() === 0;
+
   return (
     <div className='cart'>
       <div className='cart-items'>
@@ -84,17 +86,17 @@ const Cart = () => {
             <hr />
             <div className='cart-total-details'>
               <p>Delivery Fee</p>
-              <p>Rs.{getTotalCartAmount() === 0 ? 0 : 5}</p>
+              <p>Rs.{isCartEmpty ? 0 : 5}</p>
             </div>
             <hr />
             <div className='cart-total-details'>
               <p>Total</p>
-              <p>
-                Rs.{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 5}
-              </p>
+              <p>Rs.{isCartEmpty ? 0 : getTotalCartAmount() + 5}</p>
             </div>
           </div>
-          <button onClick={() => navigate("/order")}>
+          <button
+            onClick={() => navigate("/order")}
+            disabled={isCartEmpty}>
             PROCEED TO CHECKOUT
           </button>
         </div>

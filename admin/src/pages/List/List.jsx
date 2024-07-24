@@ -16,45 +16,29 @@ const List = ({ url }) => {
       if (response.data.success) {
         setList(response.data.data);
       } else {
-        toast.error("Failed to fetch food list");
+        toast.error("Failed to fetch food list", { autoClose: 1000 });
       }
     } catch (error) {
       console.error("Error fetching food list:", error);
-      toast.error("Error fetching food list");
+      toast.error("Error fetching food list", { autoClose: 1000 });
     }
   };
 
   // Remove a food item
-  const removeFood = async (foodId) => {
+  const removeFood = async () => {
     try {
-      const response = await axios.post(`${url}/api/food/remove`, {
-        id: foodId,
-      });
+      const response = await axios.delete(`${url}/api/food/remove`);
       if (response.data.success) {
-        toast.success(response.data.message);
+        toast.success(response.data.message, { autoClose: 1000 });
         await fetchList();
       } else {
-        toast.error(response.data.message || "Failed to remove food");
+        toast.error(response.data.message || "Failed to remove food", {
+          autoClose: 1000,
+        });
       }
     } catch (error) {
       console.error("Error removing food:", error);
-      toast.error("Error removing food");
-    }
-  };
-
-  // Update a food item
-  const updateFood = async (foodId) => {
-    try {
-      const response = await axios.put(`${url}/api/food/update/${foodId}`);
-      if (response.data.success) {
-        toast.success(response.data.message);
-        await fetchList();
-      } else {
-        toast.error(response.data.message || "Failed to update food");
-      }
-    } catch (error) {
-      console.error("Error updating food:", error);
-      toast.error("Error updating food");
+      toast.error("Error removing food", { autoClose: 1000 });
     }
   };
 
@@ -72,7 +56,7 @@ const List = ({ url }) => {
           <p>Description</p>
           <p>Category</p>
           <p>Price</p>
-          <p>Action</p>
+          <p>Actions</p>
         </div>
         {list.map((item) => (
           <div
@@ -86,7 +70,6 @@ const List = ({ url }) => {
             <p>{item.description}</p>
             <p>{item.category}</p>
             <p>Rs.{item.price}</p>
-
             <div className='action'>
               <p
                 className='cursor'

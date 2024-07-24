@@ -55,7 +55,7 @@ const Product = ({ url }) => {
             value={data.name}
             type='text'
             name='name'
-            placeholder='Type here'
+            placeholder='Enter product name'
           />
         </div>
 
@@ -66,7 +66,7 @@ const Product = ({ url }) => {
             value={data.description}
             name='description'
             rows='6'
-            placeholder='Write content here'
+            placeholder='Enter product Description'
             required></textarea>
         </div>
 

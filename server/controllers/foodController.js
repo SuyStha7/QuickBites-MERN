@@ -69,6 +69,7 @@ const removeFood = async (req, res) => {
   }
 };
 
+
 // single food item
 const singleProd = async (req, res) => {
   try {
@@ -95,7 +96,9 @@ const updateFood = async (req, res) => {
     const existingFood = await foodModel.findById(id);
 
     if (!existingFood) {
-      return res.status(404).json({ success: false, message: "Food item not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Food item not found" });
     }
 
     // Update fields with new data
@@ -125,9 +128,10 @@ const updateFood = async (req, res) => {
     res.json({ success: true, message: "Food item updated" });
   } catch (error) {
     console.log(`Error updating food item: ${error.message}`);
-    res.status(500).json({ success: false, message: "Error updating food item" });
+    res
+      .status(500)
+      .json({ success: false, message: "Error updating food item" });
   }
 };
-
 
 export { addProd, listFood, removeFood, addCat, singleProd, updateFood };

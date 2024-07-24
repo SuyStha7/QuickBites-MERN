@@ -97,7 +97,7 @@ const UpdateProduct = ({ url }) => {
             value={data.name}
             type='text'
             name='name'
-            placeholder='Type here'
+            placeholder='Enter product name'
             required
           />
         </div>
@@ -109,7 +109,7 @@ const UpdateProduct = ({ url }) => {
             value={data.description}
             name='description'
             rows='6'
-            placeholder='Write content here'
+            placeholder='Enter product description'
             required></textarea>
         </div>
 
@@ -155,7 +155,7 @@ const UpdateProduct = ({ url }) => {
               value={data.price}
               type='number'
               name='price'
-              placeholder='Rs.20'
+              placeholder='Enter Price'
               required
             />
           </div>
