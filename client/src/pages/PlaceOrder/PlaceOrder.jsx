@@ -52,7 +52,7 @@ const PlaceOrder = () => {
 
       if (paymentMethod === "cash") {
         // Navigate to orders page directly for Cash on Delivery
-        navigate("/orders");
+        navigate("/myorders");
       } else {
         const { session_url } = response.data;
         window.location.replace(session_url);

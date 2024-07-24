@@ -19,7 +19,6 @@ const MyOrders = () => {
         { headers: { token } }
       );
       setData(response.data.data);
-      toast.info("Tracking order...", { autoClose: 2 });
     } catch (error) {
       toast.error("Error fetching orders: " + error.message, {
         autoClose: 1000,
@@ -32,6 +31,18 @@ const MyOrders = () => {
       fetchOrders();
     }
   }, [token]);
+
+  // Handle track order button click
+  const handleTrackOrder = async () => {
+    try {
+      await fetchOrders(); // Fetch orders
+      toast.info("Tracking order...", { autoClose: 3000 }); // Show toast after fetching orders
+    } catch (error) {
+      toast.error("Error tracking order: " + error.message, {
+        autoClose: 1000,
+      });
+    }
+  };
 
   // Remove order
   const removeOrder = async (orderId) => {
@@ -76,7 +87,7 @@ const MyOrders = () => {
               <span>&#x25cf;</span> <b>{order.status}</b>
             </p>
             <button
-              onClick={() => fetchOrders()}
+              onClick={handleTrackOrder}
               className='track-btn'>
               Track Order
             </button>
