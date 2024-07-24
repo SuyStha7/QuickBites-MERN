@@ -35,8 +35,8 @@ const MyOrders = () => {
   // Handle track order button click
   const handleTrackOrder = async () => {
     try {
-      await fetchOrders(); // Fetch orders
-      toast.info("Tracking order...", { autoClose: 3000 }); // Show toast after fetching orders
+      await fetchOrders();
+      toast.info("Tracking order...", { autoClose: 1000 });
     } catch (error) {
       toast.error("Error tracking order: " + error.message, {
         autoClose: 1000,

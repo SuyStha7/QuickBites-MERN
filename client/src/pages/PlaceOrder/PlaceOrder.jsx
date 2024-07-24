@@ -51,7 +51,6 @@ const PlaceOrder = () => {
       });
 
       if (paymentMethod === "cash") {
-        // Navigate to orders page directly for Cash on Delivery
         navigate("/myorders");
       } else {
         const { session_url } = response.data;
