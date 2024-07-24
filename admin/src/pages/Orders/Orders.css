@@ -1,6 +1,6 @@
 .order-item {
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr 1fr 2fr 1fr;
     align-items: center;
     gap: 30px;
     border: 1px solid #01b0e4;
@@ -37,6 +37,13 @@
     width: max(10vw, 120px);
     padding: 10px 8px;
     outline: none;
+}
+
+.remove-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 22px;
+    color: red
 }
 
 @media (max-width: 1000px) {

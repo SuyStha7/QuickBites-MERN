@@ -1,0 +1,86 @@
+:root {
+    --swiper-pagination-color: var(--button-color-hover);
+}
+
+.slide {
+    height: 250px;
+    overflow: hidden;
+    z-index: 0;
+}
+
+#slide1 {
+    background: url('https://orgass.myshopify.com/cdn/shop/files/slider-1.jpg?v=1641277090') no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+#slide2 {
+    background: url('https://orgass.myshopify.com/cdn/shop/files/slider-2.jpg?v=1642761479') no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+#slide3 {
+    background: url('https://orgass.myshopify.com/cdn/shop/files/slider-3.jpg?v=1642761510') no-repeat;
+    background-size: cover;  
+}
+
+.slide-info {
+    color: rgb(255, 255, 255);
+    position: absolute;
+    top: 20%;
+    left: 0.75rem;
+    width: 45%;
+}
+
+#slide3 .slide-info {
+    left: auto;
+    right: 1.2rem;
+}
+
+.slide-info-heading {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.slide-info-content {
+    font-size: 0.7rem;
+}
+
+@media screen and (min-width:1280px) {
+    :root {
+        --swiper-pagination-bullet-width: 16px;
+        --swiper-pagination-bullet-height: 16px;
+        --swiper-pagination-bullet-inactive-color: white;
+        --swiper-pagination-bullet-inactive-opacity: 0.9;
+    }
+
+    .banner {
+        margin-block: 2rem;
+    }
+
+    .slide {
+        height: 72vh;
+    }
+
+    #slide1,
+    #slide2,
+    #slide3 {
+        background-position: center;
+    }
+
+    .slide-info {
+        top: 30%;
+        left: 3rem;
+    }
+
+    .slide-info-heading {
+        font-size: 3.5rem;
+        margin-bottom: 2rem;
+        line-height: 1;
+    }
+
+    .slide-info-content {
+        font-size: 1.5rem;
+    }
+}

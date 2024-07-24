@@ -4,11 +4,9 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// place order
+// Place Order
 const placeOrder = async (req, res) => {
   const frontend_url = "http://localhost:5173";
-
-  console.log(`stripe is : ${stripe}`);
 
   try {
     const newOrder = new orderModel({
@@ -32,8 +30,6 @@ const placeOrder = async (req, res) => {
       },
       quantity: item.quantity,
     }));
-
-    console.log(lineItems);
 
     lineItems.push({
       price_data: {
@@ -61,6 +57,7 @@ const placeOrder = async (req, res) => {
   }
 };
 
+// Verify Order
 const verifyOrder = async (req, res) => {
   const { orderId, success } = req.body;
   try {
@@ -77,6 +74,7 @@ const verifyOrder = async (req, res) => {
   }
 };
 
+// User Orders
 const userOrder = async (req, res) => {
   try {
     const orders = await orderModel.find({ userId: req.body.userId });
@@ -87,7 +85,7 @@ const userOrder = async (req, res) => {
   }
 };
 
-// listing orders for admin panel
+// List Orders
 const listOrders = async (req, res) => {
   try {
     const orders = await orderModel.find({});
@@ -98,7 +96,7 @@ const listOrders = async (req, res) => {
   }
 };
 
-// api for updating order status
+// Update Order Status
 const updateStatus = async (req, res) => {
   try {
     await orderModel.findByIdAndUpdate(req.body.orderId, {
@@ -111,4 +109,23 @@ const updateStatus = async (req, res) => {
   }
 };
 
-export { placeOrder, verifyOrder, userOrder, listOrders, updateStatus };
+// Remove Order
+const removeOrder = async (req, res) => {
+  try {
+    await orderModel.findByIdAndDelete(req.params.orderId);
+    res.json({ success: true, message: "Order removed successfully" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error removing order" });
+  }
+};
+
+
+export {
+  placeOrder,
+  verifyOrder,
+  userOrder,
+  listOrders,
+  updateStatus,
+  removeOrder,
+};

@@ -2,7 +2,7 @@ import foodModel from "../models/foodModel.js";
 import fs from "fs";
 
 // add food item
-const addFood = async (req, res) => {
+const addProd = async (req, res) => {
   let image_filename = `${req.file.filename}`;
 
   const food = new foodModel({
@@ -14,10 +14,34 @@ const addFood = async (req, res) => {
   });
   try {
     await food.save();
-    res.json({ success: true, message: "Food added" });
+    res.json({ success: true, message: "Product added" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error" });
+  }
+};
+
+const addCat = async (req, res) => {
+  const { name } = req.body;
+
+  if (!name) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Name is required" });
+  }
+
+  const food = new foodModel({ name });
+
+  try {
+    await food.save();
+    res.status(201).json({ success: true, message: "Category added" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Error adding category",
+      error: error.message,
+    });
   }
 };
 
@@ -45,4 +69,65 @@ const removeFood = async (req, res) => {
   }
 };
 
-export { addFood, listFood, removeFood };
+// single food item
+const singleProd = async (req, res) => {
+  try {
+    const food = await foodModel.findById(req.params.id);
+    if (!food) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
+    }
+    res.json({ success: true, data: food });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Error" });
+  }
+};
+
+// Update food item
+const updateFood = async (req, res) => {
+  const { id } = req.params;
+  const { name, description, price, category } = req.body;
+
+  try {
+    // Find the existing food item
+    const existingFood = await foodModel.findById(id);
+
+    if (!existingFood) {
+      return res.status(404).json({ success: false, message: "Food item not found" });
+    }
+
+    // Update fields with new data
+    existingFood.name = name || existingFood.name;
+    existingFood.description = description || existingFood.description;
+    existingFood.price = price || existingFood.price;
+    existingFood.category = category || existingFood.category;
+
+    // Check if a new image is being uploaded
+    if (req.file) {
+      const oldImagePath = path.join("uploads", existingFood.image);
+
+      // Remove the old image from the file system
+      fs.unlink(oldImagePath, (err) => {
+        if (err) {
+          console.log(`Error removing old image: ${err.message}`);
+        }
+      });
+
+      // Update the image filename
+      existingFood.image = req.file.filename;
+    }
+
+    // Save the updated food item
+    await existingFood.save();
+
+    res.json({ success: true, message: "Food item updated" });
+  } catch (error) {
+    console.log(`Error updating food item: ${error.message}`);
+    res.status(500).json({ success: false, message: "Error updating food item" });
+  }
+};
+
+
+export { addProd, listFood, removeFood, addCat, singleProd, updateFood };

@@ -1,16 +1,20 @@
-import './AppDownload.css'
-import { assets } from '../../assets/assets'
+import "./AppDownload.css";
+import { assets } from "../../assets/assets";
 
 const AppDownload = () => {
   return (
-    <div className='app-download' id='app-download'>
-      <p>For Better Experience Download <br />Fresh Food App</p>
-      <div className='app-download-platform'>
-        <img src={assets.play_store} alt="" />
-        <img src={assets.app_store} alt="" />
+    <div className="app-download-box" id="appDownload">
+      <div className="heading-box">
+        <h2 className="main-heading">For Better Experience </h2>
+        <h3 className="sub-heading">Download QuickBite App</h3>
+      </div>
+
+      <div className="image-box">
+        <img src={assets.play_store} alt="Play store Image" />
+        <img src={assets.app_store} alt="App Store Image" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AppDownload
+export default AppDownload;
