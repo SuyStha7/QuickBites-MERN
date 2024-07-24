@@ -11,6 +11,8 @@ import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ForgetPass from "./pages/ForgetPass/ForgetPass";
+import ResetPass from "./pages/ResetPass/ResetPass";
 
 const App = () => {
   const location = useLocation();
@@ -22,7 +24,6 @@ const App = () => {
 
   return (
     <>
-      {/* Conditional rendering of LoginPopup */}
       {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
 
       {/* Header component */}
@@ -49,6 +50,14 @@ const App = () => {
           <Route
             path='/myorders'
             element={<MyOrders />}
+          />
+          <Route
+            path='/forget-password'
+            element={<ForgetPass />}
+          />
+          <Route
+            path='/reset-password'
+            element={<ResetPass />}
           />
         </Routes>
       </main>

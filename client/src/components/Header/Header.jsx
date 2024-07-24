@@ -9,6 +9,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import { StoreContext } from "../../context/StoreContext";
+import { toast } from "react-toastify";
 
 const Header = ({ setShowLogin }) => {
   const { getTotalCartAmount, token, setToken, foodList, url } =
@@ -30,6 +31,7 @@ const Header = ({ setShowLogin }) => {
     localStorage.removeItem("token");
     setToken("");
     navigate("/");
+    toast.success("You are successfully logged out", { autoClose: 1000 });
   };
 
   const toggleNavbar = () => {

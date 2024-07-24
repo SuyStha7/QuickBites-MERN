@@ -71,14 +71,14 @@ const List = ({ url }) => {
             <p>{item.category}</p>
             <p>Rs.{item.price}</p>
             <div className='action'>
+              <Link to={`/updateProd/${item._id}`}>
+                <FaEdit className='icons update' />
+              </Link>
               <p
                 className='cursor'
                 onClick={() => removeFood(item._id)}>
                 <IoMdRemoveCircleOutline className='icons remove' />
               </p>
-              <Link to={`/updateProd/${item._id}`}>
-                <FaEdit className='icons update' />
-              </Link>
             </div>
           </div>
         ))}

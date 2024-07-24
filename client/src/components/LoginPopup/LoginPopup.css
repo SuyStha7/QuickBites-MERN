@@ -123,6 +123,7 @@
     font-size: 16px;
     transition: border-color 0.25s linear;
     width: 100%;
+    position: relative;
 }
 
 .popup-container {
@@ -139,7 +140,7 @@
 .password-toggle {
     position: absolute;
     right: 10px;
-    top: 23%;
+    top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 1.01rem;
@@ -155,4 +156,14 @@
     color: red;
     font-size: 0.85rem;
     margin: 0.5rem 0.2rem;
+}
+
+.forgot-password-link p{
+    margin: 0.1rem;
+    cursor: pointer;
+    float: right;
+}
+
+.options{
+    text-align: center;
 }

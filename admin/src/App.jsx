@@ -1,4 +1,3 @@
-import React from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
@@ -7,7 +6,6 @@ import Orders from "./pages/Orders/Orders";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Product from "./pages/AddProduct/Product";
-import Category from "./pages/AddCategory/Category";
 import UpdateProduct from "./pages/UpdateProduct/UpdateProduct";
 
 const App = () => {
@@ -20,10 +18,6 @@ const App = () => {
       <div className='app-content'>
         <Sidebar />
         <Routes>
-          <Route
-            path='/addCat'
-            element={<Category url={url} />}
-          />
           <Route
             path='/addProd'
             element={<Product url={url} />}

@@ -1,61 +1,101 @@
-.order-item {
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr 1fr 2fr;
-    align-items: center;
-    gap: 30px;
-    border: 1px solid #01b0e4;
-    padding: 20px;
-    margin: 30px 0px;
-    font-size: 15px;
-    color: #505050;
-    border-radius: 10px;
+.order {
+    padding: 30px;
 }
 
+/* Payment Method Section */
+.payment-method {
+    margin-bottom: 20px;
+}
+
+.payment-method label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.payment-method select {
+    border-radius: 5px;
+    background-color: #e4f9ff;
+    border: 1px solid #01b0e4;
+    padding: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.order-item {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #01b0e4;
+    padding: 15px;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #505050;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}   
+
+/* Styling for order food and name */
 .order-item-food,
 .order-item-name {
     font-weight: 600;
 }
 
+/* General styling for paragraphs */
 .order p {
-    line-height: 18px;
-    letter-spacing: 0.9px;
+    line-height: 20px;
+    letter-spacing: 0.8px;
 }
 
+/* Title styling */
 .order h2 {
-    font-size: 25px;
+    font-size: 26px;
+    margin-bottom: 20px;
 }
 
+/* Margin adjustments for order item name and address */
 .order-item-name {
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 5px;
 }
 
 .order-item-address {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
+/* Styling for select dropdown */
 .order-item select {
     border-radius: 5px;
     background-color: #e4f9ff;
     border: 1px solid #01b0e4;
-    width: max(10vw, 120px);
+    width: 120px;
     padding: 10px 8px;
     outline: none;
 }
 
+/* Remove button styling (if needed) */
 .remove-btn {
-    padding: 5px 10px;
+    padding: 6px 12px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 24px;
     color: red;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for remove button (if needed) */
+.remove-btn:hover {
+    color: darkred;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
     .order-item {
         font-size: 14px;
-        grid-template-columns: 1fr 3fr 1fr 1fr 1.5fr;
-        gap: 20px;
+        grid-template-columns: 1fr 3fr 1fr 1fr 1.5fr 1fr;
+        gap: 15px;
     }
 
     .order-item select {
@@ -70,14 +110,14 @@
 
 @media (max-width: 1000px) {
     .order-item {
-        font-size: 12px;
+        font-size: 13px;
         grid-template-columns: 1fr 2fr 1fr;
-        padding: 15px 8px;
+        padding: 12px;
     }
 
     .order-item select {
-        padding: 5px;
-        font-size: 12px;
+        padding: 6px;
+        font-size: 13px;
     }
 
     .order-item img {
@@ -87,16 +127,16 @@
 
 @media (max-width: 600px) {
     .order-item {
-        font-size: 10px;
+        font-size: 11px;
         grid-template-columns: 1fr 2fr;
-        padding: 10px;
-        margin: 20px 0px;
+        padding: 8px;
+        margin: 15px 0;
     }
 
     .order-item select {
         width: 100%;
-        padding: 8px;
-        font-size: 10px;
+        padding: 6px;
+        font-size: 11px;
     }
 
     .order-item img {
@@ -104,15 +144,15 @@
     }
 
     .remove-btn {
-        font-size: 18px;
+        font-size: 20px;
         padding: 4px 8px;
     }
 
     .order h2 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .order p {
-        line-height: 16px;
+        line-height: 18px;
     }
 }

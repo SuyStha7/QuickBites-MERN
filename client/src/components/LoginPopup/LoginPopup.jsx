@@ -8,6 +8,7 @@ import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // Validation schema
 const getValidationSchema = (currState) =>
@@ -32,9 +33,11 @@ const getValidationSchema = (currState) =>
   });
 
 const LoginPopup = ({ setShowLogin }) => {
+  const navigate = useNavigate();
   const { url, setToken } = useContext(StoreContext);
   const [currState, setCurrState] = useState("Login");
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
 
   const handleFormSubmit = async (values) => {
     const endpoint =
@@ -53,6 +56,11 @@ const LoginPopup = ({ setShowLogin }) => {
       console.error("Error during login/register:", error);
       toast.error("An error occurred. Please try again.", { autoClose: 1000 });
     }
+  };
+
+  const handleForgetPassword = () => {
+    setShowLogin(false); // Close the modal
+    navigate("/forget-password"); // Navigate to Forget Password page
   };
 
   return (
@@ -103,19 +111,30 @@ const LoginPopup = ({ setShowLogin }) => {
                   type={showPassword ? "text" : "password"}
                   name='password'
                   placeholder='Password'
-                  onChange={handleChange}
+                  value={password}
+                  onChange={(e) => {
+                    handleChange(e);
+                    setPassword(e.target.value);
+                  }}
                 />
-                <span
-                  className='password-toggle'
-                  onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
+                {password && (
+                  <span
+                    className='password-toggle'
+                    onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                )}
                 <ErrorMessage
                   name='password'
                   component='p'
                   className='error-message'
                 />
               </div>
+              {currState === "Login" && (
+                <div className='forgot-password-link'>
+                  <p onClick={handleForgetPassword}>Forgot Password?</p>
+                </div>
+              )}
             </div>
             {currState === "Sign Up" && (
               <div className='popup-container'>
@@ -133,7 +152,7 @@ const LoginPopup = ({ setShowLogin }) => {
             <Button type='submit'>
               {currState === "Sign Up" ? "Create account" : "Login"}
             </Button>
-            <p>
+            <p className='options'>
               {currState === "Login" ? (
                 <>
                   Create a new account?{" "}
