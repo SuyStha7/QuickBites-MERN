@@ -56,19 +56,37 @@ const listFood = async (req, res) => {
   }
 };
 
-// remove food item
 const removeFood = async (req, res) => {
   try {
-    const foods = await foodModel.findById(req.body.id);
-    fs.unlink(`uploads/${foods.image}`, () => {});
+    // Find the food item by ID
+    const food = await foodModel.findById(req.body.id);
+
+    if (!food) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Food item not found" });
+    }
+
+    // Construct the path to the image file
+    const imagePath = path.join(__dirname, "../uploads", food.image);
+
+    // Delete the image file
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error("Error deleting image file:", err);
+      }
+    });
+
+    // Delete the food item from the database
     await foodModel.findByIdAndDelete(req.body.id);
-    res.json({ success: true, message: "Food removed" });
+
+    // Respond with success
+    res.json({ success: true, message: "Food removed successfully" });
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "Error" });
+    console.error("Error removing food item:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
-
 
 // single food item
 const singleProd = async (req, res) => {

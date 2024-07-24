@@ -2,14 +2,12 @@ import { useContext, useState } from "react";
 import "./FoodItem.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Modal from "../Modal/Modal";
 import { MdOutlineZoomOutMap } from "react-icons/md";
 import { toast } from "react-toastify";
 
 const FoodItem = ({ id, name, price, image, rating = 4.5, description }) => {
-  const { cartItems, addToCart, removeFromCart, url, token } =
-    useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart, url, token } = useContext(StoreContext);
   const [showModal, setShowModal] = useState(false);
 
   const handleAddToCart = () => {
@@ -17,9 +15,7 @@ const FoodItem = ({ id, name, price, image, rating = 4.5, description }) => {
       addToCart(id);
       toast.success(`${name} added to cart!`, { autoClose: 1000 });
     } else {
-      toast.error("Please log in to add items to the cart.", {
-        autoClose: 1000,
-      });
+      toast.error("Please log in to add items to the cart.", { autoClose: 1000 });
     }
   };
 
@@ -28,27 +24,15 @@ const FoodItem = ({ id, name, price, image, rating = 4.5, description }) => {
       removeFromCart(id);
       toast.success(`${name} removed from cart!`, { autoClose: 1000 });
     } else {
-      toast.error("Please log in to remove items from the cart.", {
-        autoClose: 1000,
-      });
+      toast.error("Please log in to remove items from the cart.", { autoClose: 1000 });
     }
   };
 
-  const renderRating = (rating) => {
-    const fullStars = Math.floor(rating);
-    const halfStars = rating % 1 !== 0 ? 1 : 0;
-
-    return (
-      <div className='food-item-rating'>
-        {[...Array(fullStars)].map((_, i) => (
-          <FaStar
-            key={`full-${i}`}
-            color='#ffd700'
-          />
-        ))}
-        {halfStars === 1 && <FaStarHalfAlt color='#ffd700' />}
-      </div>
-    );
+  // Helper function to truncate description
+  const truncateDescription = (desc, limit = 10) => {
+    const words = desc.split(' ');
+    if (words.length <= limit) return desc;
+    return words.slice(0, limit).join(' ') + '...';
   };
 
   return (
@@ -81,9 +65,7 @@ const FoodItem = ({ id, name, price, image, rating = 4.5, description }) => {
             />
           </div>
         )}
-        <div
-          className='zoom-icon'
-          onClick={() => setShowModal(true)}>
+        <div className='zoom-icon' onClick={() => setShowModal(true)}>
           <MdOutlineZoomOutMap />
         </div>
       </div>
@@ -92,12 +74,15 @@ const FoodItem = ({ id, name, price, image, rating = 4.5, description }) => {
           <p>{name}</p>
           <h6 className='food-item-price'>Rs.{price}</h6>
         </div>
-        <div className='rating'>{renderRating(rating)}</div>
+        <p>{truncateDescription(description)}</p>
       </div>
 
       <Modal
         show={showModal}
-        onClose={() => setShowModal(false)}>
+        onClose={() => setShowModal(false)}
+        price={price}
+        rating={rating}
+      >
         <h3>{name}</h3>
         <img
           src={`${url}/images/${image}`}
@@ -105,7 +90,6 @@ const FoodItem = ({ id, name, price, image, rating = 4.5, description }) => {
           style={{ width: "100%" }}
         />
         <p>{description}</p>
-        <span>Rs.{price}</span>
       </Modal>
     </div>
   );

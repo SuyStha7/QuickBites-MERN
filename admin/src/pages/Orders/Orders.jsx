@@ -3,6 +3,7 @@ import "./Orders.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { assets } from "../../assets/assets";
+import { IoMdRemoveCircleOutline } from "react-icons/io";
 
 const Orders = ({ url }) => {
   const [orders, setOrders] = useState([]);
@@ -33,6 +34,20 @@ const Orders = ({ url }) => {
       }
     } catch (error) {
       toast.error("Error updating order status: " + error.message);
+    }
+  };
+
+  const removeOrderHandler = async (orderId) => {
+    try {
+      const response = await axios.delete(`${url}/api/order/remove/${orderId}`);
+      if (response.data.success) {
+        await fetchAllOrders(); // Refresh the order list
+        toast.success("Order removed successfully", {autoClose: 1000});
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Error removing order: " + error.message, {autoClose: 1000});
     }
   };
 

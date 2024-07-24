@@ -20,11 +20,15 @@ const PlaceOrder = () => {
     phone: "",
   });
 
+  const [paymentMethod, setPaymentMethod] = useState("cash");
+
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setData((data) => ({ ...data, [name]: value }));
+    setData((prevData) => ({ ...prevData, [name]: value }));
   };
+
+  const navigate = useNavigate();
 
   const placeOrder = async (event) => {
     event.preventDefault();
@@ -38,6 +42,7 @@ const PlaceOrder = () => {
       address: data,
       items: orderItems,
       amount: getTotalCartAmount() + 5,
+      paymentMethod,
     };
 
     try {
@@ -45,15 +50,18 @@ const PlaceOrder = () => {
         headers: { token },
       });
 
-      const { session_url } = response.data;
-      window.location.replace(session_url);
+      if (paymentMethod === "cash") {
+        // Navigate to orders page directly for Cash on Delivery
+        navigate("/orders");
+      } else {
+        const { session_url } = response.data;
+        window.location.replace(session_url);
+      }
     } catch (error) {
-      alert("Error");
+      alert("Error placing order. Please try again.");
       console.error("Error placing order:", error);
     }
   };
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
@@ -61,7 +69,7 @@ const PlaceOrder = () => {
     } else if (getTotalCartAmount() === 0) {
       navigate("/cart");
     }
-  }, [token]);
+  }, [token, navigate, getTotalCartAmount]);
 
   return (
     <form
@@ -76,7 +84,8 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             value={data.firstName}
             type='text'
-            placeholder='First Name'
+            placeholder='Enter first name'
+            autoComplete='on'
           />
           <input
             required
@@ -84,7 +93,8 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             value={data.lastName}
             type='text'
-            placeholder='Last Name'
+            placeholder='Enter last name'
+            autoComplete='on'
           />
         </div>
         <input
@@ -93,7 +103,8 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           value={data.email}
           type='email'
-          placeholder='Email address'
+          placeholder='Enter email address'
+          autoComplete='on'
         />
         <input
           required
@@ -101,7 +112,8 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           value={data.street}
           type='text'
-          placeholder='Street'
+          placeholder='Enter street'
+          autoComplete='on'
         />
         <div className='multi-fields'>
           <input
@@ -110,7 +122,8 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             value={data.city}
             type='text'
-            placeholder='City'
+            placeholder='Enter city'
+            autoComplete='on'
           />
           <input
             required
@@ -118,7 +131,8 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             value={data.state}
             type='text'
-            placeholder='State'
+            placeholder='Enter state'
+            autoComplete='on'
           />
         </div>
         <div className='multi-fields'>
@@ -128,7 +142,8 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             value={data.zipcode}
             type='text'
-            placeholder='Zip code'
+            placeholder='Enter zip code'
+            autoComplete='on'
           />
           <input
             required
@@ -136,7 +151,8 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             value={data.country}
             type='text'
-            placeholder='Country'
+            placeholder='Enter country'
+            autoComplete='on'
           />
         </div>
         <input
@@ -145,7 +161,8 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           value={data.phone}
           type='text'
-          placeholder='Phone'
+          placeholder='Enter phone number'
+          autoComplete='on'
         />
       </div>
 
@@ -169,6 +186,30 @@ const PlaceOrder = () => {
                 Rs.{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 5}
               </p>
             </div>
+          </div>
+
+          <div className='payment-method'>
+            <h2>Choose Payment Method:</h2>
+            <label>
+              <input
+                type='radio'
+                name='paymentMethod'
+                value='cash'
+                checked={paymentMethod === "cash"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              Cash on Delivery
+            </label>
+            <label>
+              <input
+                type='radio'
+                name='paymentMethod'
+                value='stripe'
+                checked={paymentMethod === "stripe"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              Stripe
+            </label>
           </div>
           <button type='submit'>PROCEED TO PAYMENT</button>
         </div>
