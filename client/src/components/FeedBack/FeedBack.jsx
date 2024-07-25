@@ -1,6 +1,7 @@
 import React from "react";
 import "./FeedBack.css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { reviews } from "../../data";
 
@@ -30,7 +31,12 @@ const FeedBack = () => {
       <h2>Customer Feedback</h2>
       <Swiper
         spaceBetween={30}
-        slidesPerView={2}>
+        slidesPerView={2}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay]}>
         {reviews.map((review, index) => (
           <SwiperSlide key={index}>
             <div className='feedback-card'>
@@ -43,10 +49,10 @@ const FeedBack = () => {
                 <h3>{review.name}</h3>
                 {renderStars(review.rating)}
               </div>
-              <div className="review">
+              <div className='review'>
                 <p>"{review.review}"</p>
               </div>
-              <div className="date-address">
+              <div className='date-address'>
                 <p>{review.address}</p>
                 <p>{review.dateAdded}</p>
               </div>
