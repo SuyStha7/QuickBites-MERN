@@ -124,6 +124,17 @@
   background-color: #6495ed;
 }
 
+.empty-cart{
+  font-size: 20px;
+  height: 30vh;
+  text-align: center;
+  margin-top: 12%;
+}
+
+.empty-cart h2{
+  margin-bottom: 20px;
+}
+
 @media (max-width: 750px) {
     .cart-bottom{
         flex-direction: column-reverse;

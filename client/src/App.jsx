@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ForgetPass from "./pages/ForgetPass/ForgetPass";
 import ResetPass from "./pages/ResetPass/ResetPass";
+import Contact from "./pages/Contact/Contact";
 
 const App = () => {
   const location = useLocation();
@@ -52,6 +53,10 @@ const App = () => {
             element={<MyOrders />}
           />
           <Route
+            path='/contact'
+            element={<Contact />}
+          />
+          <Route
             path='/forget-password'
             element={<ForgetPass />}
           />
@@ -66,7 +71,7 @@ const App = () => {
       <Footer />
 
       {/* Toast container for notifications */}
-      <ToastContainer />
+      <ToastContainer position='bottom-right' />
     </>
   );
 };

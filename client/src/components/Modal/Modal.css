@@ -48,12 +48,13 @@
 }
 
 .modal-close {
+  margin: 12px;
   position: absolute;
   top: 10px;
   right: 10px;
-  background: none;
   border: none;
-  font-size: 24px;
+  color: #49557e;
+  font-size: 25px;
   cursor: pointer;
 }
 

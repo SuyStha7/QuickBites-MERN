@@ -4,7 +4,7 @@
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
     margin: 1rem auto;
     padding: 1rem;
-    width: 75%;
+    width: 100%;
 }
 
 .app-download-box .heading-box {
@@ -17,7 +17,7 @@
 }
 
 .app-download-box .main-heading {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
 }
 
 .app-download-box .sub-heading {
@@ -44,22 +44,22 @@
 @media screen and (min-width:1280px) {
     .app-download-box {
         margin-block: 4rem;
-        width: 40%;
+        width: 50%;
     }
 
     .app-download-box .main-heading {
-        font-size: 2.75rem;
+        font-size: 2.5rem;
     }
 
     .app-download-box .sub-heading {
-        font-size: 1.75rem;
+        font-size: 1.8rem;
     }
 
     .app-download-box .image-box {
-        gap: 2rem;
+        gap: 3rem;
     }
 
     .image-box img {
-        width: 10rem;
+        width: 11rem;
     }
 }

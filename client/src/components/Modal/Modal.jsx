@@ -10,9 +10,9 @@ const Modal = ({ show, onClose, children, price, rating }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <button className="modal-close" onClick={onClose}>
+        <div className="modal-close" onClick={onClose}>
           &times;
-        </button>
+        </div>
         <div className="modal-body">
           {children}
           <div className="modal-price-rating">

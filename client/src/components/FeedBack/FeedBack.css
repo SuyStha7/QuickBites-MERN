@@ -1,0 +1,187 @@
+.feedback {
+    margin: 4rem auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .feedback h2 {
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #333;
+  }
+  
+  .feedback-card {
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .review-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .feedback-card h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .feedback-card .review {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 15px;
+  }
+
+  .feedback-card .date-address{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-weight: 600;
+  }
+
+  .star-rating {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 25px;
+    gap: 6px;
+  }
+  
+  .filled-star {
+    color: #FFD700;
+  }
+  
+  .half-star {
+    color: #FFD700;
+    position: relative;
+    overflow: hidden;
+    width: 0.5em;
+  }
+  
+  .empty-star {
+    color: #ccc;
+  }
+  
+  /* Custom Swiper Navigation Buttons */
+  .swiper-button-next,
+  .swiper-button-prev {
+    background-color: #E8751A; /* Orange background */
+    color: #000; /* White color for arrow */
+    border-radius: 50%; /* Circular buttons */
+    width: 30px; /* Adjusted for smaller screens */
+    height: 30px; /* Adjusted for smaller screens */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+  }
+  
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    background-color: #d7601b; /* Darker orange on hover */
+  }
+  
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 18px; /* Adjusted for smaller screens */
+  }
+  
+  .swiper-button-next {
+    right: 10px; /* Position on the right */
+  }
+  
+  .swiper-button-prev {
+    left: 10px; /* Position on the left */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .feedback h2 {
+      font-size: 1.5em;
+    }
+  
+    .feedback-card {
+      padding: 15px;
+    }
+  
+    .review-image {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .feedback-card h3 {
+      font-size: 0.9em;
+    }
+  
+    .feedback-card p {
+      font-size: 0.8em;
+    }
+  
+    .star-rating {
+      font-size: 18px;
+    }
+  
+    .swiper-button-next,
+    .swiper-button-prev {
+      width: 28px;
+      height: 28px;
+    }
+  
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .feedback {
+      padding: 10px;
+    }
+  
+    .feedback h2 {
+      font-size: 1.2em;
+    }
+  
+    .feedback-card {
+      padding: 10px;
+    }
+  
+    .review-image {
+      width: 30px;
+      height: 30px;
+    }
+  
+    .feedback-card h3 {
+      font-size: 0.8em;
+    }
+  
+    .feedback-card p {
+      font-size: 0.7em;
+    }
+  
+    .star-rating {
+      font-size: 16px;
+    }
+  
+    .swiper-button-next,
+    .swiper-button-prev {
+      width: 24px;
+      height: 24px;
+    }
+  
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+      font-size: 14px;
+    }
+  }
+  

@@ -4,8 +4,8 @@ import Banner from "../../components/Banner/banner";
 import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 import AppDownload from "../../components/AppDownload/AppDownload";
-import Contact from "../../components/Contact/Contact";
 import FeedBack from "../../components/FeedBack/FeedBack";
+import FormBox from "../../components/FormBox/FormBox";
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -14,9 +14,9 @@ const Home = () => {
       <Banner />
       <ExploreMenu category={category} setCategory={setCategory} />
       <FoodDisplay category={category} />
-      <AppDownload />
       <FeedBack />
-      <Contact />
+      <FormBox />
+      <AppDownload />
     </div>
   );
 };

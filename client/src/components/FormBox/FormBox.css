@@ -1,0 +1,74 @@
+.FormBox {
+  padding: 40px;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.review-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #01afe409;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.FormBox-title {
+  margin-bottom: 20px;
+}
+
+.FormBox-title h2 {
+  font-size: 2em;
+  color: #333;
+}
+
+.FormBox-input input,
+.FormBox-input select,
+.FormBox-input textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.FormBox-input input:focus,
+.FormBox-input select:focus,
+.FormBox-input textarea:focus{
+  outline: none;
+  border: 2px solid #01b0e4;
+}
+
+.FormBox-input .FormBox-info{
+  display: flex;
+  gap: 10px;
+}
+
+.FormBox-input .FormBox-review{
+  display: flex;
+  gap: 10px;
+}
+
+.rating-input label {
+  font-weight: bold;
+}
+
+.FormBox-input textarea {
+  resize: vertical;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #01b0e4;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #d7601b;
+}

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import "./Header.css";
 import { assets } from "../../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,12 +16,13 @@ const Header = ({ setShowLogin }) => {
     useContext(StoreContext);
 
   const [searchFood, setSearchFood] = useState("");
-
   const [showProfileDropdown, setshowProfileDropdown] = useState(false);
-
   const [showNavbar, setShowNavbar] = useState(false);
 
   const navigate = useNavigate();
+  const profileDropdownRef = useRef(null);
+  const profileIconRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   const handleInput = (e) => {
     setSearchFood(e.target.value);
@@ -37,6 +38,36 @@ const Header = ({ setShowLogin }) => {
   const toggleNavbar = () => {
     setShowNavbar((prev) => !prev);
   };
+
+  // Handle click outside of profile dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        profileDropdownRef.current &&
+        !profileDropdownRef.current.contains(event.target) &&
+        !profileIconRef.current.contains(event.target)
+      ) {
+        // Clear any existing timeout
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+
+        // Set a timeout to close the dropdown
+        timeoutRef.current = setTimeout(() => {
+          setshowProfileDropdown(false);
+        }, 200); // Adjust delay as needed
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      // Clean up the timeout on component unmount
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -93,7 +124,7 @@ const Header = ({ setShowLogin }) => {
                 <a href='#appDownload'>Mobile App</a>
               </li>
               <li>
-                <a href='#contact'>Contact us</a>
+                <Link to={"/contact"}>Contact</Link>
               </li>
             </ul>
           </div>
@@ -169,17 +200,26 @@ const Header = ({ setShowLogin }) => {
         </div>
 
         <div className='navbar-right'>
-          {token && (
-            <div className='cart-icon-box'>
+          <div className='cart-icon-box'>
+            {token ? (
               <IoMdCart
                 className='cart-icon'
                 onClick={() => {
                   navigate("/cart");
                 }}
               />
-              <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
-            </div>
-          )}
+            ) : (
+              <IoMdCart
+                className='cart-icon disabled'
+                onClick={() => {
+                  toast.info("You must log in to view your cart.", {
+                    autoClose: 1000,
+                  });
+                }}
+              />
+            )}
+            <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+          </div>
 
           {!token ? (
             <div
@@ -188,7 +228,9 @@ const Header = ({ setShowLogin }) => {
               Login
             </div>
           ) : (
-            <div className='navbar-profile'>
+            <div
+              className='navbar-profile'
+              ref={profileIconRef}>
               <img
                 className='profile-image'
                 src={assets.profile_image}
@@ -199,7 +241,9 @@ const Header = ({ setShowLogin }) => {
               />
 
               {showProfileDropdown && (
-                <ul className='nav-profile-dropdown'>
+                <ul
+                  className='nav-profile-dropdown'
+                  ref={profileDropdownRef}>
                   <li onClick={() => navigate("/myorders")}>
                     <img
                       src={assets.bag_icon}
