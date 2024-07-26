@@ -25,7 +25,7 @@ const FormBox = () => {
     emailjs
       .send(
         "service_b8h5r7k",
-        "template_yakscqj",
+        "template_m9c75rh",
         formData,
         "XEwQS3W476owBPf9r"
       )

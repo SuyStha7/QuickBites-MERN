@@ -2,23 +2,43 @@ import { useState } from "react";
 import "./ForgetPass.css";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
-import axios from "axios"; // Don't forget to import axios
+import emailjs from "emailjs-com";
 
 const ForgetPass = () => {
   const [email, setEmail] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      // Assume we have an API endpoint that handles password reset requests
-      await axios.post("/api/user/request-password-reset", { email });
-      toast.success("Password reset email sent!", { autoClose: 1000 });
-    } catch (error) {
-      console.error("Error sending reset email:", error);
-      toast.error("Failed to send reset email. Please try again.", {
-        autoClose: 1000,
+
+    const serviceID = "service_b8h5r7k";
+    const templateID = "template_yakscqj";
+    const userID = "XEwQS3W476owBPf9r";
+
+    emailjs
+      .send(
+        serviceID,
+        templateID,
+        {
+          user_email: email,
+          reset_link: `http://localhost:4000/reset-password/${generateToken()}`,
+        },
+        userID
+      )
+      .then((result) => {
+        console.log(result.text);
+        toast.success("Password reset email sent!", { autoClose: 1000 });
+      })
+      .catch((error) => {
+        console.error("Error sending reset email:", error);
+        toast.error("Failed to send reset email. Please try again.", {
+          autoClose: 1000,
+        });
       });
-    }
+  };
+
+  const generateToken = () => {
+    // Generate a random token (this should be handled securely on the server-side in a real application)
+    return Math.random().toString(36).substr(2);
   };
 
   return (
@@ -30,6 +50,7 @@ const ForgetPass = () => {
         className='forget-pass-form'>
         <input
           type='email'
+          name='user_email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder='Your email address'

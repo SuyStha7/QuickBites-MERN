@@ -2,48 +2,80 @@ import { useState } from "react";
 import "./ResetPass.css";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
-import axios from "axios"; // Don't forget to import axios
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; // Import eye icons
 
-const ResetPass = () => {
-  const [email, setEmail] = useState("");
+const ResetPassword = () => {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [token, setToken] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match.", { autoClose: 1000 });
+      return;
+    }
     try {
-      // Assume we have an API endpoint that handles password reset requests
-      await axios.post("/api/user/request-password-reset", { email });
-      toast.success("Password reset email sent!", { autoClose: 1000 });
+      // Replace with your API endpoint
+      await axios.post("/api/user/reset-password", { token, newPassword });
+      toast.success("Password has been reset successfully!", {
+        autoClose: 1000,
+      });
     } catch (error) {
-      console.error("Error sending reset email:", error);
-      toast.error("Failed to send reset email. Please try again.", {
+      console.error("Error resetting password:", error);
+      toast.error("Failed to reset password. Please try again.", {
         autoClose: 1000,
       });
     }
   };
 
   return (
-    <div className='forget-pass-container'>
-      <h2>Forgot Password</h2>
-      <p>Enter your email address to reset your password.</p>
+    <div className='reset-password-container'>
+      <h2>Reset Password</h2>
       <form
         onSubmit={handleSubmit}
-        className='forget-pass-form'>
-        <input
-          type='email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder='Your email address'
-          required
-        />
+        className='reset-password-form'>
+        <div className='password-field'>
+          <input
+            type={showNewPassword ? 'text' : 'password'}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            placeholder='New Password'
+            required
+          />
+          <button
+            type='button'
+            className='toggle-password'
+            onClick={() => setShowNewPassword(!showNewPassword)}
+          >
+            {showNewPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+          </button>
+        </div>
+        <div className='password-field'>
+          <input
+            type={showConfirmPassword ? 'text' : 'password'}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder='Confirm New Password'
+            required
+          />
+          <button
+            type='button'
+            className='toggle-password'
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            {showConfirmPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+          </button>
+        </div>
         <Button
-          type='submit'
-          variant='contained'
-          color='primary'>
-          Send Reset Link
+          type='submit'>
+          Reset Password
         </Button>
       </form>
     </div>
   );
 };
 
-export default ResetPass;
+export default ResetPassword;

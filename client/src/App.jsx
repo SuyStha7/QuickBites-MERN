@@ -14,14 +14,36 @@ import "react-toastify/dist/ReactToastify.css";
 import ForgetPass from "./pages/ForgetPass/ForgetPass";
 import ResetPass from "./pages/ResetPass/ResetPass";
 import Contact from "./pages/Contact/Contact";
+import { IoMdArrowDropup } from "react-icons/io";
 
 const App = () => {
   const location = useLocation();
   const [showLogin, setShowLogin] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <>
@@ -69,6 +91,15 @@ const App = () => {
 
       {/* Footer component */}
       <Footer />
+
+      {/* Scroll to Top button */}
+      {isVisible && (
+        <div
+          className='scroll-top'
+          onClick={scrollToTop}>
+          <IoMdArrowDropup />
+        </div>
+      )}
 
       {/* Toast container for notifications */}
       <ToastContainer position='bottom-right' />

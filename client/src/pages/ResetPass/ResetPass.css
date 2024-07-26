@@ -1,51 +1,48 @@
-.forget-pass-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .forget-pass-container h2 {
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .forget-pass-container p {
-    margin-bottom: 20px;
-    color: #666;
-  }
-  
-  .forget-pass-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .forget-pass-form input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
+.reset-password-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
 
-  .forget-pass-form input:focus{
-    outline: none;
-    border-color: #01b0e4;
-  }
-  
-  .forget-pass-form Button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #01b0e4;
-  }
+.reset-password-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  .forget-pass-form Button:hover {
-    background-color: #e8751a;
-  }
-  
+.reset-password-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.reset-password-form input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.reset-password-form input:focus {
+  outline: none;
+  border-color: #01b0e4;
+}
+
+.reset-password-form button {
+  align-self: center;
+  color: #fff;
+}
+
+.reset-password-form Button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #01b0e4;
+}
+
+.reset-password-form Button:hover {
+  background-color: #e8751a;
+}
