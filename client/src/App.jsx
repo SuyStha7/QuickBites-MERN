@@ -15,6 +15,7 @@ import ForgetPass from "./pages/ForgetPass/ForgetPass";
 import ResetPass from "./pages/ResetPass/ResetPass";
 import Contact from "./pages/Contact/Contact";
 import { IoMdArrowDropup } from "react-icons/io";
+import Profile from "./pages/Profile/Profile";
 
 const App = () => {
   const location = useLocation();
@@ -77,6 +78,10 @@ const App = () => {
           <Route
             path='/contact'
             element={<Contact />}
+          />
+          <Route
+            path='/profile'
+            element={<Profile />}
           />
           <Route
             path='/forget-password'

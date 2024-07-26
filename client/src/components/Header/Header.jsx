@@ -244,6 +244,13 @@ const Header = ({ setShowLogin }) => {
                 <ul
                   className='nav-profile-dropdown'
                   ref={profileDropdownRef}>
+                  <li onClick={() => navigate("/profile")}>
+                    <img
+                      src={assets.profile_icon}
+                      alt=''
+                    />
+                    <span>Profile</span>
+                  </li>
                   <li onClick={() => navigate("/myorders")}>
                     <img
                       src={assets.bag_icon}
@@ -251,6 +258,7 @@ const Header = ({ setShowLogin }) => {
                     />
                     <span>Orders</span>
                   </li>
+
                   <li onClick={logout}>
                     <img
                       src={assets.logout_icon}

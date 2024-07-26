@@ -74,33 +74,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-const requestPasswordReset = async (req, res) => {
-  const { email } = req.body;
-  try {
-    const user = await userModel.findOne({ email });
-
-    if (!user) {
-      return res.json({ success: false, message: "User doesn't exist" });
-    }
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h", // Token expires in 1 hour
-    });
-
-    // Here you should send the token to the user's email.
-    // This is a placeholder response for demonstration.
-    console.log(`Password reset token (send via email): ${token}`);
-
-    res.json({
-      success: true,
-      message: "Password reset link has been sent to your email",
-    });
-  } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "Error" });
-  }
-};
-
 const resetPassword = async (req, res) => {
   const { token, newPassword } = req.body;
 
@@ -139,4 +112,43 @@ const resetPassword = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser, resetPassword, requestPasswordReset };
+// Fetch user profile
+const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Update user profile
+const updateProfile = async (req, res) => {
+  try {
+    const { username, email, address } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { username, email, address },
+      { new: true } // Return the updated document
+    );
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export {
+  loginUser,
+  registerUser,
+  resetPassword,
+  updateProfile,
+  getProfile,
+};
